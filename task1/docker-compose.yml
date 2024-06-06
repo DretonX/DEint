@@ -14,7 +14,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   app:
-    build: .
+    build: ./
     depends_on:
       - db
     environment:

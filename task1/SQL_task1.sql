@@ -6,7 +6,7 @@ CREATE INDEX idx_students_gender ON students(gender);
 
 
 
--- the Creating a list with all rooms with students and count of students for each room.
+-- 1 Create a list with all rooms with students and count of students for each room.
 SELECT r.name as Room_name, COUNT(s.name) as Students_count
 FROM rooms AS r 
 LEFT JOIN students AS s ON r.id = s.room_id 
@@ -16,7 +16,7 @@ ORDER BY
 
 
 
--- the Creating a list of 5 room with smallest average age of students for each room.
+-- 2 Create a list of 5 room with smallest average age of students for each room.
 WITH RoomAverage AS (
 		SELECT
 			r.id AS room_id,
@@ -45,7 +45,7 @@ LIMIT
 
 
 
--- the Creating a list of 5 room with biggest age difference of students for each room.
+-- 3 Creatуe a list of 5 room with biggest age difference of students for each room.
 WITH AgeRange AS (
     SELECT 
         r.id AS room_id,
@@ -68,12 +68,33 @@ ORDER BY
     age_range DESC
 LIMIT 5;
 
+-- 4 Create a list of rooms with students of different genders.
+WITH RoomGenders AS (
+    SELECT
+        r.name AS room_name,
+        COUNT(DISTINCT s.gender) AS gender_count
+    FROM
+        rooms AS r
+    JOIN
+        students AS s ON r.id = s.room_id
+    GROUP BY
+        r.name
+    HAVING
+        COUNT(DISTINCT s.gender) > 1
+)
+SELECT
+    room_name
+FROM
+    RoomGenders
+ORDER BY
+    CAST(SUBSTRING(room_name FROM '#([0-9]+)') AS INTEGER);
 
 
---Explain how an index works in queries. For Example with first query.
+
+-- 5 Explain how an index works in queries. For Example with first query.
 EXPLAIN SELECT r.name as Room_name, COUNT(s.name) as Students_count
-FROM rooms AS r 
-LEFT JOIN students AS s ON r.id = s.room_id 
+FROM rooms AS r
+LEFT JOIN students AS s ON r.id = s.room_id
 GROUP BY 1
-ORDER BY 
+ORDER BY
   CAST(SUBSTRING(r.name FROM '#([0-9]+)') AS INTEGER);
