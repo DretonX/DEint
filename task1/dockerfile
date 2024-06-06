@@ -1,0 +1,18 @@
+# Use Python 3.12 Version as latest
+FROM python:3.12
+
+# Make relations requirements.txt
+COPY jsons/requirements.txt /task1/jsons/requirements.txt
+RUN pip install -r /task1/jsons/requirements.txt
+
+# Make relations for PostgreSQL
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Copy all files from jsons in directory /jsons of container
+COPY jsons /task1/jsons
+
+# Make of working directory
+WORKDIR /task1/jsons
+
+# Launch script main.py
+ENTRYPOINT ["python", "main.py"]

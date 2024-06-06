@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: task1
+      POSTGRES_USER: alexv
+      POSTGRES_PASSWORD: depassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: ./
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: task1
+      DB_USER: alexv
+      DB_PASSWORD: depassword
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:
