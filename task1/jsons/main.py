@@ -27,8 +27,8 @@ def main():
             );
         """)
 
-        load_data(cursor, 'jsons/rooms.json', 'rooms')
-        load_data(cursor, 'jsons/students.json', 'students')
+        load_data(cursor, 'jsons_file/rooms.json', 'rooms')
+        load_data(cursor, 'jsons_file/students.json', 'students')
 
         conn.commit()
     finally:
