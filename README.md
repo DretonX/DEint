@@ -17,7 +17,7 @@ it's queries and index optimization
 **4) according on SQL queries in _psql_query_terminal.txt_ you can use commands in terminal for creating new JSON files with results of each queries**  
 _psql_query_terminal.txt_  
   
-**5) inside py_test folder _test_json_files.py_**. 
+**5) inside py_test folder _test_json_files.py_**  
 this test check of file in jsons_file if did have JSON files in folder or not and if this file exist test check that files not empty  
 pytest will be installed _(for example pip install pytest)_  
   
