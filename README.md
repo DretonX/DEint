@@ -2,7 +2,9 @@
 
 ## **Converting _JSON_ files into _DB tables_ and manipulating data using _SQL_ queries and completed loading all finished results into _JSON file_.** ##
 
-**1) in terminal write a command -> _docker-compose up --build_**  
+**1) in terminal write a command ->**  
+##
+    docker-compose up --build
 after then will be created docker container with DB PostgreSQL 16 and base credentials as in file _docker-compose.yml_ (docker and postgres must be installed on your computer before) 
   
 **2) connect with DB with credentials from _docker-compose.yml_**  
@@ -19,7 +21,9 @@ _psql_query_terminal.txt_
 this test check of file in jsons_file if did have JSON files in folder or not and if this file exist test check that files not empty  
 pytest will be installed _(for example pip install pytest)_  
   
-**6) start test with -> _pytest -vs test_json_files.py_**
+**6) start test with ->**
+##
+    pytest -vs test_json_files.py
  
 
 
