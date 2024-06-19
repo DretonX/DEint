@@ -5,9 +5,9 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_DB: task1
-      POSTGRES_USER: alexv
-      POSTGRES_PASSWORD: depassword
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASS}
     ports:
       - "5432:5432"
     volumes:
@@ -20,9 +20,9 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: task1
-      DB_USER: alexv
-      DB_PASSWORD: depassword
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${USER}
+      DB_PASSWORD: ${PASS}
     volumes:
       - .:/app
     ports:
