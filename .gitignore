@@ -7,3 +7,6 @@ task4/practice-2/
 task1/.env
 task1/logs/
 task1/jsons/code_test.py
+*.pyc
+__pycache__/
+task4/3_Spark_Basics/.ipynb_checkpoints/
