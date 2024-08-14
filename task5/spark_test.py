@@ -12,13 +12,13 @@ db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
 db_driver = os.getenv("DB_DRIVER")
 
-# Инициализация SparkSession
+# Initial SparkSession
 spark = SparkSession.builder \
     .appName("PostgreSQL Analysis with PySpark") \
     .config("spark.jars", "/home/jovyan/work/task5/postgresql-42.7.3.jar") \
     .getOrCreate()
 
-# Функция для загрузки данных из таблицы
+# Function for load data from tables
 def load_table(table_name):
     return spark.read.format("jdbc") \
         .option("url", db_url) \
@@ -28,7 +28,7 @@ def load_table(table_name):
         .option("driver", db_driver) \
         .load()
 
-# Загрузка данных из таблиц
+# Load table
 film_df = load_table("film")
 category_df = load_table("category")
 film_category_df = load_table("film_category")
@@ -41,7 +41,7 @@ customer_df = load_table("customer")
 address_df = load_table("address")
 city_df = load_table("city")
 
-# Задача 1: Количество фильмов в каждой категории, отсортировано по убыванию
+# task1: Quantity movies in each category, sorted DESC
 film_category_count = film_category_df.join(category_df, "category_id") \
     .groupBy("name") \
     .agg(count("film_id").alias("film_count")) \
@@ -49,7 +49,7 @@ film_category_count = film_category_df.join(category_df, "category_id") \
 
 film_category_count.show()
 
-# Задача 2: 10 актеров, чьи фильмы больше всего арендовали, отсортировано по убыванию
+# task2: 10 actors, which movies was most rented, sorted DESC
 top_actors = film_actor_df.join(rental_df.join(inventory_df, "inventory_id"), "film_id") \
     .join(actor_df, "actor_id") \
     .groupBy("actor_id", "first_name", "last_name") \
@@ -59,7 +59,7 @@ top_actors = film_actor_df.join(rental_df.join(inventory_df, "inventory_id"), "f
 
 top_actors.show()
 
-# Задача 3: Категория фильмов, на которую потратили больше всего денег
+# task3: movies category , which spend most el then else money
 top_spent_category = payment_df \
     .join(rental_df, "rental_id") \
     .join(inventory_df, "inventory_id") \
@@ -73,12 +73,12 @@ top_spent_category = payment_df \
 
 top_spent_category.show()
 
-# Задача 4: Названия фильмов, которых нет в inventory
+# task4: movies which not in inventory
 films_not_in_inventory = film_df.join(inventory_df, "film_id", "left_anti").select("title")
 
 films_not_in_inventory.show()
 
-# Задача 5: Топ 3 актеров, которые больше всего появлялись в фильмах в категории “Children”
+#task5: top3 actors whos was most from all in movies in category “Children”
 children_category_id = category_df.filter(col("name") == "Children").select("category_id").first()[0]
 
 top_actors_in_children = film_actor_df.join(film_category_df.filter(col("category_id") == children_category_id), "film_id") \
@@ -90,7 +90,7 @@ top_actors_in_children = film_actor_df.join(film_category_df.filter(col("categor
 
 top_actors_in_children.show()
 
-# Задача 6: Города с количеством активных и неактивных клиентов, отсортировано по количеству неактивных клиентов по убыванию
+# task6: cities with number of active and inactive clients, sorted by number of inactive clients in descending order
 active_inactive_customers = customer_df.join(address_df, "address_id") \
     .join(city_df, "city_id") \
     .groupBy("city") \
@@ -102,7 +102,7 @@ active_inactive_customers = customer_df.join(address_df, "address_id") \
 
 active_inactive_customers.show()
 
-# Задача 7: Категория фильмов с наибольшим количеством часов аренды в городах, которые начинаются на "a" или содержат "-"
+# task7: the category of films with the most rental hours in cities that start with "a" or contain "-"
 top_category_a_cities = rental_df.join(inventory_df, "inventory_id") \
     .join(film_df, "film_id") \
     .join(film_category_df, "film_id") \
@@ -117,7 +117,5 @@ top_category_a_cities = rental_df.join(inventory_df, "inventory_id") \
 
 top_category_a_cities.show()
 
-# Остановка SparkSession
+# stop SparkSession
 spark.stop()
-
-#psql -h task1-db-1 -U alexv -d task3SQL
