@@ -10,3 +10,15 @@ task1/jsons/code_test.py
 *.pyc
 __pycache__/
 task4/3_Spark_Basics/.ipynb_checkpoints/
+.ipynb_checkpoints
+task5/README.md
+task5/.env
+task5/task5_script.py
+task5/postgresql-42.7.3.jar
+task5/check.ipynb
+task6/
+task7/
+task8/
+task9/
+task10/
+task11/
