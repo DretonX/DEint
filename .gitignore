@@ -25,9 +25,21 @@ task7/logs
 task7/plugins
 task7/postgres_data
 task7/tesd.py
-task8/
+task7/dags/snowflake_etl.py
+task8/logs
+task8/plugins
+task8/postgres_data
+task8/temp
+task8/.env
+task8/airflow.cfg
+task8/docker-compose.yml
+task8/Dockerfile
+task8/requirements.txt
+task8/task.txt
+task8/Airline Dataset.csv
 task9/
 task10/
 task11/
 task12/
 pagina/
+task_demo/
