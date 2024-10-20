@@ -52,3 +52,4 @@ with DAG(
 
 
     create_raw_table >> load_raw_data >> create_transformed_tables >> log_affected_rows
+
